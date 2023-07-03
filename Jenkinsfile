@@ -1,5 +1,7 @@
 pipeline {
-   agent any
+   agent {
+     lable "linux-agent"
+    }
 
    environment {
        LISTA_CORREOS = 'kevinpavonucreativa@gmail.com'
