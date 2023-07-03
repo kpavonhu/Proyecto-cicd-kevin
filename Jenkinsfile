@@ -1,6 +1,6 @@
 pipeline {
    agent {
-     lable "linux-agent"
+     label "linux-agent"
     }
 
    environment {
@@ -17,7 +17,28 @@ pipeline {
               sh 'npm install'
            }
        }
-       
+       stage('Correr Pruebas Unitarias'){
+           steps{
+              sh 'npm run test'
+           }
+       }
+       stage('Correr SonarQube'){
+           steps{
+              withSonarQubeEnv('SonarQubeCursoCI'){
+                  sh "/opt/sonar-scanner/bin/sonar-scanner -Dsonar.projectkey=AngularApp -Dsonar.sources=src"
+              }
+           }
+       }
+
+
+       stage('SonarQube Quality Gate'){
+           steps{
+              sleep 5
+              timeout (time: 10, unit: 'MINUTES'){
+                  waitForQualityGate abortPipeline: true
+              }
+           }
+       }
        stage('Compilacion del APP'){
            steps{
               sh 'npm run build'
@@ -27,6 +48,13 @@ pipeline {
        stage('Mostrar Archivos'){
            steps{
               sh 'ls -la'
+           }
+       }
+
+       //Despliegue
+       stage('Despliegue de la aplicacion'){
+           steps{
+              sh 'cp dist/CICD-kevin/*'
            }
        }
 
