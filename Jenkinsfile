@@ -1,6 +1,6 @@
 pipeline {
    agent {
-     linux-agent
+     lable "linux-agent"
     }
 
    environment {
