@@ -52,11 +52,11 @@ pipeline {
        }
 
        //Despliegue
-       stage('Despliegue de la aplicacion'){
-           steps{
-              sh 'cp dist/CICD-kevin/*'
-           }
-       }
+       //stage('Despliegue de la aplicacion'){
+           //steps{
+              //sh 'cp dist/CICD-kevin/*'
+           //}
+       //}
 
 
    }
