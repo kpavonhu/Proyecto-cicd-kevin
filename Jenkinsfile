@@ -45,7 +45,7 @@ pipeline {
        //Despliegue
        //stage('Despliegue de la aplicacion'){
            //steps{
-              //sh 'cp dist/CICD-kevin/*'
+              //sh 'scp dist/CICD-kevin/* root@206.189.254.187:/usr/creativa/kevin-dev'
            //}
        //}
    }
