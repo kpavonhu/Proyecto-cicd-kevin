@@ -30,7 +30,6 @@ pipeline {
            }
        }
 
-
        stage('SonarQube Quality Gate'){
            steps{
               sleep 5
@@ -57,8 +56,6 @@ pipeline {
               //sh 'cp dist/CICD-kevin/*'
            //}
        //}
-
-
    }
 
    post {
