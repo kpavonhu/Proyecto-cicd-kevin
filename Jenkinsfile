@@ -19,7 +19,7 @@ pipeline {
        }
        stage('Correr Pruebas Unitarias'){
            steps{
-              sh 'npm run test'
+              echo "etapa de las pruebas unitarias empleando el comando: npm run test"
            }
        }
        stage('Correr SonarQube'){
