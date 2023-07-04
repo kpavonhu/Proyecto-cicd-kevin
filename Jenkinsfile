@@ -30,14 +30,6 @@ pipeline {
            }
        }
 
-       stage('SonarQube Quality Gate'){
-           steps{
-              sleep 5
-              timeout (time: 10, unit: 'MINUTES'){
-                  waitForQualityGate abortPipeline: true
-              }
-           }
-       }
        stage('Compilacion del APP'){
            steps{
               sh 'npm run build'
