@@ -45,7 +45,7 @@ pipeline {
        //Despliegue
        stage('Despliegue de la aplicacion'){
            steps{
-              sh 'scp dist/AngularApp/* root@206.189.254.187:/usr/creativa/kevin-dev'
+              sh 'scp dist/AngularApp/* root@206.189.254.187:/usr/ucreativa/kevin-dev/'
            }
        }
    }
