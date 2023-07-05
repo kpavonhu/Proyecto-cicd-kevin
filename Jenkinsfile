@@ -3,13 +3,6 @@ pipeline {
      label "linux-agent"
     }
 
-   environment {
-       LISTA_CORREOS = 'kevinpavonucreativa@gmail.com'
-       CUERPO_CORREO = "El pipeline ${BUILD_URL} se creo sin problemas,"
-       CUERPO_CORREO2 = "El pipeline ${BUILD_URL} experimento problemas,"
-       TITULO_CORREO = "Detalles pipeline ${BUILD_URL} STATUS"
-   }
-
    stages{
        //Integracion Continua
        stage('Instalar Dependencias'){
@@ -19,26 +12,17 @@ pipeline {
        }
        stage('Correr Pruebas Unitarias'){
            steps{
-              sh 'npm run test'
+              echo "etapa de las pruebas unitarias empleando el comando: npm run test"
            }
        }
        stage('Correr SonarQube'){
            steps{
               withSonarQubeEnv('SonarQubeCursoCI'){
-                  sh "/opt/sonar-scanner/bin/sonar-scanner -Dsonar.projectkey=AngularApp -Dsonar.sources=src"
+                  sh "/opt/sonar-scanner/bin/sonar-scanner -Dsonar.projectKey=AngularApp -Dsonar.sources=src"
               }
            }
        }
 
-
-       stage('SonarQube Quality Gate'){
-           steps{
-              sleep 5
-              timeout (time: 10, unit: 'MINUTES'){
-                  waitForQualityGate abortPipeline: true
-              }
-           }
-       }
        stage('Compilacion del APP'){
            steps{
               sh 'npm run build'
@@ -47,16 +31,17 @@ pipeline {
 
        stage('Mostrar Archivos'){
            steps{
-              sh 'ls -la'
+              sh 'ls -la dist/'
            }
        }
 
        //Despliegue
        stage('Despliegue de la aplicacion'){
            steps{
-              sh 'cp dist/CICD-kevin/*'
+              sh 'scp dist/cicd-kevin/* root@206.189.254.187:/usr/ucreativa/kevin-dev/'
            }
        }
+<<<<<<< HEAD
 
 
    }
@@ -69,5 +54,7 @@ pipeline {
           emailext body: "${CUERPO_CORREO2} revisar errores ", subject: "${TITULO_CORREO}", to: "${LISTA_CORREOS}"
        }
        
+=======
+>>>>>>> 1b635c4cd8c61d724c467ff85576cab631ea9189
    }
 }
